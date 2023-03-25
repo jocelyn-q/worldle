@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CountryService from "../services/country";
+import "./flag.css";
 
 interface MyComponentProps {
   countryCode: string;
@@ -16,9 +17,7 @@ class MyComponent extends Component<{}, MyComponentProps> {
   }
 
   async componentDidMount() {
-    const { countryCode } = this.state;
-
-    await this.getCountryFlagUrl(await this.getRandomCountryCode());
+    this.setState({ countryFlagUrl: await this.getRandomUrl() });
   }
 
   async getRandomCountryCode(): Promise<string> {
@@ -38,21 +37,28 @@ class MyComponent extends Component<{}, MyComponentProps> {
     console.log(countryFlagUrl);
 
     this.setState({ countryFlagUrl });
+    return countryFlagUrl;
+  }
+
+  async getRandomUrl(): Promise<string> {
+    const url = await this.getCountryFlagUrl(await this.getRandomCountryCode());
+    return url;
   }
 
   render() {
-    const { countryFlagUrl } = this.state;
+    var { countryFlagUrl } = this.state;
+    const handleClick = async () => {
+      // implementation details
+      countryFlagUrl = await this.getRandomUrl();
+      console.log(countryFlagUrl);
+    };
+
     return (
       <div className="countryFlag">
-        <img
-          src={countryFlagUrl}
-          height="35%"
-          width="35%"
-          max-height="35%"
-          max-width="35%"
-          alt="flag"
-        />
-        ;
+        <button className="flag-btn" type="button" onClick={handleClick}>
+          Randomise Flag
+        </button>
+        <img className="flag-img" src={countryFlagUrl} alt="flag" />;
       </div>
     );
   }
