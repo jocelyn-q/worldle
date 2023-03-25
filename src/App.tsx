@@ -1,4 +1,4 @@
-import MyComponent from "./components/main";
+import MyComponent from "./components/flag";
 import "./App.css";
 
 function App() {
