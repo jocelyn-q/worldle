@@ -10,6 +10,14 @@ If you want to stop the application, just run
 docker container stop pokedex-website
 ```
 
+## Deploy the app on github pages
+
+```
+npm run deploy -- -m [MSG]
+```
+
+cf : https://github.com/gitname/react-gh-pages
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
