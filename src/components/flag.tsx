@@ -1,33 +1,39 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import CountryService from "../services/country";
+import SubmitComponent from "./submit";
+
 import "./flag.css";
 
-interface MyComponentProps {
+interface FlagProps {
+  countries: Record<string, string>;
   countryCode: string;
   countryFlagUrl: string;
 }
 
-class MyComponent extends Component<{}, MyComponentProps> {
+class FlagComponent extends Component<{}, FlagProps> {
   constructor(props: {}) {
     super(props);
     this.state = {
+      countries: {},
       countryCode: "fr",
       countryFlagUrl: "",
     };
   }
 
   async componentDidMount() {
+    const countryService = new CountryService();
+    await countryService.getCountriesCode().then((data) => {
+      this.setState({ countries: data });
+    });
+
     this.setState({ countryFlagUrl: await this.getRandomUrl() });
   }
 
   async getRandomCountryCode(): Promise<string> {
-    const countryService = new CountryService();
-    const countryCodes = await countryService.getCountriesCode();
+    const randomCode = Object.keys(this.state.countries)[
+      Math.floor(Math.random() * Object.keys(this.state.countries).length)
+    ];
 
-    const randomCode =
-      Object.keys(countryCodes)[
-        Math.floor(Math.random() * Object.keys(countryCodes).length)
-      ];
     this.setState({ countryCode: randomCode });
     return randomCode;
   }
@@ -46,9 +52,9 @@ class MyComponent extends Component<{}, MyComponentProps> {
   }
 
   render() {
-    var { countryFlagUrl } = this.state;
+    var { countryFlagUrl, countryCode, countries } = this.state;
+
     const handleClick = async () => {
-      // implementation details
       countryFlagUrl = await this.getRandomUrl();
       console.log(countryFlagUrl);
     };
@@ -59,9 +65,10 @@ class MyComponent extends Component<{}, MyComponentProps> {
           Randomise Flag
         </button>
         <img className="flag-img" src={countryFlagUrl} alt="flag" />;
+        <SubmitComponent countries={countries} countryCode={countryCode} />
       </div>
     );
   }
 }
 
-export default MyComponent;
+export default FlagComponent;

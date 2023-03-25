@@ -1,0 +1,15 @@
+.input-text {
+  color: black;
+  width: 20%;
+  height: 25%;
+  font-size: 16px;
+}
+
+.country-name {
+  color: white;
+  font-size: 32px;
+}
+
+form {
+  height: 100px;
+}

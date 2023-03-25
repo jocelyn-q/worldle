@@ -1,10 +1,10 @@
-import MyComponent from "./components/flag";
+import FlagComponent from "./components/flag";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <MyComponent />
+      <FlagComponent />
     </div>
   );
 }
