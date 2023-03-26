@@ -1,22 +1,24 @@
-import React, { Component, useEffect } from "react";
-import CountryService from "../services/country";
-import SubmitComponent from "./submit";
+import React, { Component, useEffect } from 'react';
+import CountryService from '../services/country';
+import SubmitComponent from './submit';
 
-import "./flag.css";
+import './flag.css';
 
-interface FlagProps {
+interface FlagState {
   countries: Record<string, string>;
   countryCode: string;
   countryFlagUrl: string;
+  displayName: boolean;
 }
 
-class FlagComponent extends Component<{}, FlagProps> {
+class FlagComponent extends Component<{}, FlagState> {
   constructor(props: {}) {
     super(props);
     this.state = {
       countries: {},
-      countryCode: "fr",
-      countryFlagUrl: "",
+      countryCode: 'fr',
+      countryFlagUrl: '',
+      displayName: false,
     };
   }
 
@@ -51,21 +53,30 @@ class FlagComponent extends Component<{}, FlagProps> {
     return url;
   }
 
+  async handleBtnClick() {
+    this.setState({ countryFlagUrl: await this.getRandomUrl(), displayName: false });
+  }
+
   render() {
     var { countryFlagUrl, countryCode, countries } = this.state;
 
-    const handleClick = async () => {
-      countryFlagUrl = await this.getRandomUrl();
-      console.log(countryFlagUrl);
-    };
-
     return (
       <div className="countryFlag">
-        <button className="flag-btn" type="button" onClick={handleClick}>
+        <button className="flag-btn" type="button" onClick={this.handleBtnClick.bind(this)}>
           Randomise Flag
         </button>
+        <button
+          className="country-name-btn"
+          type="button"
+          onClick={(event) => {
+            this.setState({ displayName: !this.state.displayName });
+          }}
+        >
+          Display Flag Name
+        </button>
         <img className="flag-img" src={countryFlagUrl} alt="flag" />;
-        <SubmitComponent countries={countries} countryCode={countryCode} />
+        {this.state.displayName ? <span className="country-name">{countries[countryCode]}</span> : ''}
+        <SubmitComponent countries={countries} countryCode={countryCode} isCorrectProp={false} />
       </div>
     );
   }
