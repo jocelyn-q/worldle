@@ -4,7 +4,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <h1>Worldle</h1>
+      <h1>WORLDLE</h1>
       <FlagComponent />
     </div>
   );

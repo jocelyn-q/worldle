@@ -63,10 +63,13 @@ class FlagComponent extends Component<{}, FlagState> {
 
     return (
       <div className="countryFlag">
-        <img className="flag-img" src={countryFlagUrl} alt="flag" />
+        <div className="flag">
+          <img className="flag-img" src={countryFlagUrl} alt="flag" />
+        </div>
+        <span className="country-name">{this.state.displayName ? countries[countryCode] : ''}</span>
         <div className="btn-group">
           <button className="flag-btn" type="button" onClick={this.handleBtnClick.bind(this)}>
-            Randomise Flag
+            Randomise
           </button>
           <button
             className="country-name-btn"
@@ -75,10 +78,9 @@ class FlagComponent extends Component<{}, FlagState> {
               this.setState({ displayName: !this.state.displayName });
             }}
           >
-            Display Flag Name
+            Display Name
           </button>
         </div>
-        {this.state.displayName ? <span className="country-name">{countries[countryCode]}</span> : ''}
         <SubmitComponent countries={countries} countryCode={countryCode} isCorrectAnwser={false} />
       </div>
     );
