@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import { Component } from 'react';
 import CountryService from '../services/country';
 import SubmitComponent from './submit';
 
@@ -22,6 +22,7 @@ class FlagComponent extends Component<{}, FlagState> {
     };
   }
 
+  // Load the country list once at the start of the app
   async componentDidMount() {
     const countryService = new CountryService();
     await countryService.getCountriesCode().then((data) => {
@@ -62,21 +63,23 @@ class FlagComponent extends Component<{}, FlagState> {
 
     return (
       <div className="countryFlag">
-        <button className="flag-btn" type="button" onClick={this.handleBtnClick.bind(this)}>
-          Randomise Flag
-        </button>
-        <button
-          className="country-name-btn"
-          type="button"
-          onClick={(event) => {
-            this.setState({ displayName: !this.state.displayName });
-          }}
-        >
-          Display Flag Name
-        </button>
-        <img className="flag-img" src={countryFlagUrl} alt="flag" />;
+        <img className="flag-img" src={countryFlagUrl} alt="flag" />
+        <div className="btn-group">
+          <button className="flag-btn" type="button" onClick={this.handleBtnClick.bind(this)}>
+            Randomise Flag
+          </button>
+          <button
+            className="country-name-btn"
+            type="button"
+            onClick={(event) => {
+              this.setState({ displayName: !this.state.displayName });
+            }}
+          >
+            Display Flag Name
+          </button>
+        </div>
         {this.state.displayName ? <span className="country-name">{countries[countryCode]}</span> : ''}
-        <SubmitComponent countries={countries} countryCode={countryCode} isCorrectProp={false} />
+        <SubmitComponent countries={countries} countryCode={countryCode} isCorrectAnwser={false} />
       </div>
     );
   }

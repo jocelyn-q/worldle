@@ -1,5 +1,3 @@
-import React, { Component } from "react";
-
 class CountryService {
   async getCountryByName(name: string) {
     const response = await fetch(`https://restcountries.com/v3.1/name/${name}`);

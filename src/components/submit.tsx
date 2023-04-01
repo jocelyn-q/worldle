@@ -1,16 +1,16 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 
 import './submit.css';
 
 interface SubmitProps {
   countries: Record<string, string>;
   countryCode: string;
-  isCorrectProp: boolean;
+  isCorrectAnwser: boolean;
 }
 
 interface SubmitState {
   currentAnswer: string;
-  isCorrect: boolean;
+  isCorrectAnwser: boolean;
 }
 
 class SubmitComponent extends Component<SubmitProps, SubmitState> {
@@ -18,12 +18,12 @@ class SubmitComponent extends Component<SubmitProps, SubmitState> {
     super(props);
     this.state = {
       currentAnswer: '',
-      isCorrect: false,
+      isCorrectAnwser: false,
     };
   }
 
   componentWillReceiveProps(props: SubmitProps) {
-    this.setState({ isCorrect: props.isCorrectProp });
+    this.setState({ isCorrectAnwser: props.isCorrectAnwser });
   }
 
   isCorrectAnwser(currentAnswer: string) {
@@ -32,30 +32,28 @@ class SubmitComponent extends Component<SubmitProps, SubmitState> {
     return isCorrect;
   }
 
-  handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+  handleSubmitAnswer(event: React.KeyboardEvent<HTMLInputElement>) {
     const currentAnswer = this.state.currentAnswer;
 
     if (event.key === 'Enter') {
       event.preventDefault();
 
-      this.setState({ isCorrect: this.isCorrectAnwser(currentAnswer) });
+      this.setState({ isCorrectAnwser: this.isCorrectAnwser(currentAnswer) });
     }
   }
 
   render() {
-    const { countries, countryCode } = this.props;
-
     return (
       <div>
         <form>
           <input
-            className={`input-text ${this.state.isCorrect ? 'correct' : 'wrong'}`}
+            className={`input-text ${this.state.isCorrectAnwser ? 'correct' : 'wrong'}`}
             type="text"
             onChange={(event) => this.setState({ currentAnswer: event.target.value })}
-            onKeyDown={this.handleKeyDown.bind(this)}
+            onKeyDown={this.handleSubmitAnswer.bind(this)}
           ></input>
         </form>
-        {this.state.isCorrect ? <span className="win-text">Correct Answer, well done !</span> : ''}
+        {this.state.isCorrectAnwser ? <span className="win-text">Correct Answer, well done !</span> : ''}
       </div>
     );
   }
