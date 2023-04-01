@@ -68,11 +68,11 @@ class FlagComponent extends Component<{}, FlagState> {
         </div>
         <span className="country-name">{this.state.displayName ? countries[countryCode] : ''}</span>
         <div className="btn-group">
-          <button className="flag-btn" type="button" onClick={this.handleBtnClick.bind(this)}>
+          <button className="btn green" type="button" onClick={this.handleBtnClick.bind(this)}>
             Randomise
           </button>
           <button
-            className="country-name-btn"
+            className="btn blue"
             type="button"
             onClick={(event) => {
               this.setState({ displayName: !this.state.displayName });

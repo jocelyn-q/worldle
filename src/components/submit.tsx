@@ -23,7 +23,7 @@ class SubmitComponent extends Component<SubmitProps, SubmitState> {
   }
 
   componentWillReceiveProps(props: SubmitProps) {
-    this.setState({ isCorrectAnwser: props.isCorrectAnwser });
+    this.setState({ isCorrectAnwser: props.isCorrectAnwser, currentAnswer: '' });
   }
 
   isCorrectAnwser(currentAnswer: string) {
@@ -43,12 +43,15 @@ class SubmitComponent extends Component<SubmitProps, SubmitState> {
   }
 
   render() {
+    var { currentAnswer } = this.state;
     return (
       <div>
         <form>
           <input
             className={`input-text ${this.state.isCorrectAnwser ? 'correct' : 'wrong'}`}
             type="text"
+            placeholder="Country, state..."
+            value={currentAnswer}
             onChange={(event) => this.setState({ currentAnswer: event.target.value })}
             onKeyDown={this.handleSubmitAnswer.bind(this)}
           ></input>

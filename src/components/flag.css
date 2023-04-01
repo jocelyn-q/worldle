@@ -3,6 +3,16 @@
   flex-direction: column;
 }
 
+.flag {
+  height: 350px;
+}
+
+.flag-img {
+  max-height: 350px;
+  max-width: 700px;
+  align-self: center;
+}
+
 .btn-group {
   display: flex;
   flex-direction: row;
@@ -12,36 +22,25 @@
   padding: 20px;
 }
 
-.flag {
-  height: 450px;
+.btn {
+  border-radius: 100px;
+  border-width: 2px;
+  border-style: solid;
+  color: white;
+  padding: 16px 32px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.flag-img {
-  max-height: 450px;
-  max-width: 900px;
-  align-self: center;
-}
-
-.flag-btn {
+.green {
   background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 100px;
+  border-color: #2f6b31;
 }
 
-.country-name-btn {
-  background-color: blue;
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 100px;
+.blue {
+  background-color: #2692eb;
+  border-color: #1818ce;
 }
 
 .country-name {
