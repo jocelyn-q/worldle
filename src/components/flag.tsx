@@ -33,6 +33,8 @@ class FlagComponent extends Component<{}, FlagState> {
   }
 
   async getRandomCountryCode(): Promise<string> {
+    if (this.state.countries === undefined) return 'fr';
+
     const randomCode = Object.keys(this.state.countries)[
       Math.floor(Math.random() * Object.keys(this.state.countries).length)
     ];
@@ -42,6 +44,8 @@ class FlagComponent extends Component<{}, FlagState> {
   }
 
   getCountryFlagUrl(code: string) {
+    if (code === undefined) code = 'fr';
+
     const countryFlagUrl = `https://flagcdn.com/${code}.svg`;
     console.log(countryFlagUrl);
 
