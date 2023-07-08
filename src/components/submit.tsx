@@ -55,6 +55,9 @@ class SubmitComponent extends Component<SubmitProps, SubmitState> {
       { value: 'strawberry', label: 'Strawberry' },
       { value: 'vanilla', label: 'Vanilla' },
     ];
+    console.log(this.props.countries);
+    console.log(this.props.countryCode);
+
     return (
       <div>
         <form>
@@ -71,10 +74,26 @@ class SubmitComponent extends Component<SubmitProps, SubmitState> {
             onKeyDown={this.handleSubmitAnswer.bind(this)}
           ></input>
           <Select
-            className={`input-text ${
+            className={`selector ${
               this.state.isCorrectAnwser ? 'correct' : 'wrong'
             }`}
-            options={options}
+            isClearable={true}
+            isSearchable={true}
+            onChange={(selectedOption) => {
+              if (selectedOption) {
+                console.log(selectedOption);
+                this.setState({ currentAnswer: selectedOption?.label });
+                this.setState({
+                  isCorrectAnwser: this.isCorrectAnwser(selectedOption?.label),
+                });
+              }
+            }}
+            options={Object.entries(this.props.countries).map(
+              ([key, value]) => ({
+                value: key,
+                label: value,
+              })
+            )}
           />
         </form>
         {this.state.isCorrectAnwser ? (

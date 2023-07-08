@@ -9,6 +9,12 @@
   background-color: #282c34;
 }
 
+.selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .correct {
   border-color: green;
   border-width: 8px;
