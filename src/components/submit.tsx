@@ -31,52 +31,22 @@ class SubmitComponent extends Component<SubmitProps, SubmitState> {
   }
 
   isCorrectAnwser(currentAnswer: string) {
-    const isCorrect =
-      currentAnswer.toLowerCase() ===
-      this.props.countries[this.props.countryCode].toLowerCase();
+    const isCorrect = currentAnswer.toLowerCase() === this.props.countries[this.props.countryCode].toLowerCase();
 
     return isCorrect;
   }
 
-  handleSubmitAnswer(event: React.KeyboardEvent<HTMLInputElement>) {
-    const currentAnswer = this.state.currentAnswer;
-
-    if (event.key === 'Enter') {
-      event.preventDefault();
-
-      this.setState({ isCorrectAnwser: this.isCorrectAnwser(currentAnswer) });
-    }
-  }
-
   render() {
     var { currentAnswer } = this.state;
-    const options = [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
-      { value: 'vanilla', label: 'Vanilla' },
-    ];
     console.log(this.props.countries);
     console.log(this.props.countryCode);
 
     return (
       <div>
         <form>
-          <input
-            className={`input-text ${
-              this.state.isCorrectAnwser ? 'correct' : 'wrong'
-            }`}
-            type="text"
-            placeholder="Country, state..."
-            value={currentAnswer}
-            onChange={(event) =>
-              this.setState({ currentAnswer: event.target.value })
-            }
-            onKeyDown={this.handleSubmitAnswer.bind(this)}
-          ></input>
           <Select
-            className={`selector ${
-              this.state.isCorrectAnwser ? 'correct' : 'wrong'
-            }`}
+            className={`selector ${this.state.isCorrectAnwser ? 'correct' : 'wrong'}`}
+            placeholder="Country, state..."
             isClearable={true}
             isSearchable={true}
             onChange={(selectedOption) => {
@@ -88,19 +58,13 @@ class SubmitComponent extends Component<SubmitProps, SubmitState> {
                 });
               }
             }}
-            options={Object.entries(this.props.countries).map(
-              ([key, value]) => ({
-                value: key,
-                label: value,
-              })
-            )}
+            options={Object.entries(this.props.countries).map(([key, value]) => ({
+              value: key,
+              label: value,
+            }))}
           />
         </form>
-        {this.state.isCorrectAnwser ? (
-          <span className="win-text">Correct Answer, well done !</span>
-        ) : (
-          ''
-        )}
+        {this.state.isCorrectAnwser ? <span className="win-text">Correct Answer, well done !</span> : ''}
       </div>
     );
   }
