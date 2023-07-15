@@ -1,94 +1,76 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import CountryService from '../services/country';
 import SubmitComponent from './submit';
 
 import './flag.css';
 
-interface FlagState {
-  countries: Record<string, string>;
-  countryCode: string;
-  countryFlagUrl: string;
-  displayName: boolean;
-}
+function Flag() {
+  const [countries, setCountries] = useState<{ [key: string]: string }>({});
+  const [countryCode, setCountryCode] = useState('fr');
+  const [countryFlagUrl, setCountryFlagUrl] = useState('');
+  const [displayName, setDisplayName] = useState(false);
 
-class FlagComponent extends Component<{}, FlagState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      countries: {},
-      countryCode: 'fr',
-      countryFlagUrl: '',
-      displayName: false,
+  useEffect(() => {
+    const fetchData = async () => {
+      const countryService = new CountryService();
+      const data = await countryService.getCountriesCode();
+      setCountries(data);
     };
-  }
 
-  // Load the country list once at the start of the app
-  async componentDidMount() {
-    const countryService = new CountryService();
-    await countryService.getCountriesCode().then((data) => {
-      this.setState({ countries: data });
-    });
+    fetchData();
+    setCountryFlagUrl(getRandomUrl());
+  }, []);
 
-    this.setState({ countryFlagUrl: await this.getRandomUrl() });
-  }
+  function getRandomCountryCode(): string {
+    if (countries === undefined) return 'fr';
 
-  async getRandomCountryCode(): Promise<string> {
-    if (this.state.countries === undefined) return 'fr';
+    const randomCode = Object.keys(countries)[Math.floor(Math.random() * Object.keys(countries).length)];
 
-    const randomCode = Object.keys(this.state.countries)[
-      Math.floor(Math.random() * Object.keys(this.state.countries).length)
-    ];
-
-    this.setState({ countryCode: randomCode });
+    setCountryCode(randomCode);
     return randomCode;
   }
 
-  getCountryFlagUrl(code: string) {
+  function getCountryFlagUrl(code: string) {
     if (code === undefined) code = 'fr';
 
     const countryFlagUrl = `https://flagcdn.com/${code}.svg`;
     console.log(countryFlagUrl);
 
-    this.setState({ countryFlagUrl });
+    setCountryFlagUrl(countryFlagUrl);
     return countryFlagUrl;
   }
 
-  async getRandomUrl(): Promise<string> {
-    const url = await this.getCountryFlagUrl(await this.getRandomCountryCode());
+  function getRandomUrl(): string {
+    const url = getCountryFlagUrl(getRandomCountryCode());
     return url;
   }
 
-  async handleBtnClick() {
-    this.setState({ countryFlagUrl: await this.getRandomUrl(), displayName: false });
+  function handleRandomiseClick() {
+    setCountryFlagUrl(getRandomUrl());
+    setDisplayName(false);
   }
 
-  render() {
-    var { countryFlagUrl, countryCode, countries } = this.state;
+  function handleDisplayName() {
+    setDisplayName(!displayName);
+  }
 
-    return (
-      <div className="countryFlag">
-        <div className="flag">
-          <img className="flag-img" src={countryFlagUrl} alt="flag" />
-        </div>
-        <span className="country-name">{this.state.displayName ? countries[countryCode] : ''}</span>
-        <div className="btn-group">
-          <button className="btn green" type="button" onClick={this.handleBtnClick.bind(this)}>
-            Randomise
-          </button>
-          <button
-            className="btn blue"
-            type="button"
-            onClick={(event) => {
-              this.setState({ displayName: !this.state.displayName });
-            }}
-          >
-            Display Name
-          </button>
-        </div>
-        <SubmitComponent countries={countries} countryCode={countryCode} isCorrectAnwser={false} />
+  return (
+    <div className="countryFlag">
+      <div className="flag">
+        <img className="flag-img" src={countryFlagUrl} alt="flag" />
       </div>
-    );
-  }
+      <span className="country-name">{displayName ? countries[countryCode] : ''}</span>
+      <div className="btn-group">
+        <button className="btn green" type="button" onClick={handleRandomiseClick}>
+          Randomise
+        </button>
+        <button className="btn blue" type="button" onClick={handleDisplayName}>
+          Display Name
+        </button>
+      </div>
+      <SubmitComponent countries={countries} countryCode={countryCode} isCorrectAnwser={false} />
+    </div>
+  );
 }
 
-export default FlagComponent;
+export default Flag;
