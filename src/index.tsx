@@ -12,6 +12,10 @@ const router = createBrowserRouter([
     path: '/worldle',
     element: (
       <div className="App">
+        <nav>
+          <a href="/worldle/flag">Flag</a>
+          <a href="/worldle/shape">Shape</a>
+        </nav>
         <App />
         <Outlet />
       </div>
