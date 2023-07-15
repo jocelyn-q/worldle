@@ -14,10 +14,7 @@ function Submit({ countries, countryCode, increaseWinStreak }: SubmitProps) {
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 
   function checkAnswer(answer: string) {
-    console.log(answer);
-    console.log(countryCode);
     const isCorrect = answer.toLowerCase() === countries[countryCode].toLowerCase();
-    console.log('isCorrect', isCorrect);
     if (isCorrect) increaseWinStreak();
     setIsCorrectAnswer(isCorrect);
   }
@@ -47,11 +44,13 @@ function Submit({ countries, countryCode, increaseWinStreak }: SubmitProps) {
           }))}
         />
       </form>
-      {isCorrectAnswer ? (
-        <span className="win-text">Correct Answer, well done !</span>
-      ) : (
-        <span className="win-text">Try again !</span>
-      )}
+      {currentAnswer !== '' ? (
+        isCorrectAnswer ? (
+          <span className="win-text">Correct Answer, well done!</span>
+        ) : (
+          <span className="win-text">Try again!</span>
+        )
+      ) : null}
     </div>
   );
 }
