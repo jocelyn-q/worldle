@@ -4,7 +4,11 @@ import Submit from './submit';
 
 import './flag.css';
 
-function Flag() {
+type SubmitProps = {
+  countryUrl: string;
+};
+
+function Flag({ countryUrl }: SubmitProps) {
   const [countries, setCountries] = useState<{ [key: string]: string }>(countriesJson);
   const [countryCode, setCountryCode] = useState('');
   const [countryFlagUrl, setCountryFlagUrl] = useState('');
@@ -26,8 +30,12 @@ function Flag() {
 
   function getCountryFlagUrl(code: string) {
     if (code === undefined) code = 'fr';
-
-    const countryFlagUrl = `https://flagcdn.com/${code}.svg`;
+    let countryFlagUrl;
+    if (countryUrl === '1') {
+      countryFlagUrl = `https://flagcdn.com/${code}.svg`;
+    } else {
+      countryFlagUrl = `https://staging.teuteuf-assets.pages.dev/data/worldle/countries/${code}/vector.svg`;
+    }
 
     setCountryFlagUrl(countryFlagUrl);
     return countryFlagUrl;

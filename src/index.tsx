@@ -1,15 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import App from './App';
+import Flag from './components/flag';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+import './index.css';
+
+const router = createBrowserRouter([
+  {
+    path: '/worldle',
+    element: (
+      <div className="App">
+        <App />
+        <Outlet />
+      </div>
+    ),
+    children: [
+      {
+        path: '/worldle/flag',
+        element: <Flag countryUrl={'1'} />,
+      },
+      {
+        path: '/worldle/shape',
+        element: <Flag countryUrl={'2'} />,
+      },
+    ],
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
