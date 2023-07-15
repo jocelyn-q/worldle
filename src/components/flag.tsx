@@ -1,23 +1,16 @@
 import { useEffect, useState } from 'react';
-import CountryService from '../services/country';
+import countriesJson from '../data/countries.json';
 import Submit from './submit';
 
 import './flag.css';
 
 function Flag() {
-  const [countries, setCountries] = useState<{ [key: string]: string }>({});
-  const [countryCode, setCountryCode] = useState('fr');
+  const [countries, setCountries] = useState<{ [key: string]: string }>(countriesJson);
+  const [countryCode, setCountryCode] = useState('');
   const [countryFlagUrl, setCountryFlagUrl] = useState('');
   const [displayName, setDisplayName] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const countryService = new CountryService();
-      const data = await countryService.getCountriesCode();
-      setCountries(data);
-    };
-
-    fetchData();
     setCountryFlagUrl(getRandomUrl());
   }, []);
 
@@ -34,7 +27,6 @@ function Flag() {
     if (code === undefined) code = 'fr';
 
     const countryFlagUrl = `https://flagcdn.com/${code}.svg`;
-    console.log(countryFlagUrl);
 
     setCountryFlagUrl(countryFlagUrl);
     return countryFlagUrl;
