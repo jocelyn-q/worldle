@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CountryService from '../services/country';
-import SubmitComponent from './submit';
+import Submit from './submit';
 
 import './flag.css';
 
@@ -68,7 +68,7 @@ function Flag() {
           Display Name
         </button>
       </div>
-      <SubmitComponent countries={countries} countryCode={countryCode} isCorrectAnwser={false} />
+      <Submit key={countryCode} countries={countries} countryCode={countryCode} />
     </div>
   );
 }
