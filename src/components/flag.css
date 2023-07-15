@@ -33,6 +33,10 @@
   font-weight: bold;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .green {
   background-color: #4caf50;
   border-color: #2f6b31;
@@ -41,6 +45,11 @@
 .blue {
   background-color: #2692eb;
   border-color: #1818ce;
+}
+
+.grey {
+  background-color: #2a333a;
+  border-color: #0d0d0f;
 }
 
 .country-name {

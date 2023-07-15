@@ -6,9 +6,10 @@ import './submit.css';
 type SubmitProps = {
   countries: { [key: string]: string };
   countryCode: string;
+  increaseWinStreak: any;
 };
 
-function Submit({ countries, countryCode }: SubmitProps) {
+function Submit({ countries, countryCode, increaseWinStreak }: SubmitProps) {
   const [currentAnswer, setCurrentAnswer] = useState('');
   const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
 
@@ -17,6 +18,7 @@ function Submit({ countries, countryCode }: SubmitProps) {
     console.log(countryCode);
     const isCorrect = answer.toLowerCase() === countries[countryCode].toLowerCase();
     console.log('isCorrect', isCorrect);
+    if (isCorrect) increaseWinStreak();
     setIsCorrectAnswer(isCorrect);
   }
 

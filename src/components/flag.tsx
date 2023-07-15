@@ -9,6 +9,7 @@ function Flag() {
   const [countryCode, setCountryCode] = useState('');
   const [countryFlagUrl, setCountryFlagUrl] = useState('');
   const [displayName, setDisplayName] = useState(false);
+  const [winStreak, setWinStreak] = useState(0);
 
   useEffect(() => {
     setCountryFlagUrl(getRandomUrl());
@@ -46,6 +47,10 @@ function Flag() {
     setDisplayName(!displayName);
   }
 
+  const increaseWinStreak = () => {
+    setWinStreak((streak) => streak + 1);
+  };
+
   return (
     <div className="countryFlag">
       <div className="flag">
@@ -53,14 +58,17 @@ function Flag() {
       </div>
       <span className="country-name">{displayName ? countries[countryCode] : ''}</span>
       <div className="btn-group">
-        <button className="btn green" type="button" onClick={handleRandomiseClick}>
+        <button className="btn clickable green" type="button" onClick={handleRandomiseClick}>
           Randomise
         </button>
-        <button className="btn blue" type="button" onClick={handleDisplayName}>
+        <button className="btn clickable blue" type="button" onClick={handleDisplayName}>
           Display Name
         </button>
+        <button className="btn grey" type="button">
+          Win Streak : {winStreak}
+        </button>
       </div>
-      <Submit key={countryCode} countries={countries} countryCode={countryCode} />
+      <Submit key={countryCode} countries={countries} countryCode={countryCode} increaseWinStreak={increaseWinStreak} />
     </div>
   );
 }
