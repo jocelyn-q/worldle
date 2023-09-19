@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { RouterProvider, Outlet, createHashRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import Flag from './components/flag';
 
 import './index.css';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/worldle',
     element: (
