@@ -4,17 +4,18 @@ import { RouterProvider, Outlet, createHashRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import Flag from './components/flag';
+import Shape from './components/shape';
 
 import './index.css';
 
 const router = createHashRouter([
   {
-    path: '/worldle',
+    path: '/',
     element: (
       <div className="App">
         <nav>
-          <a href="/worldle/flag">Flag</a>
-          <a href="/worldle/shape">Shape</a>
+          <a href="#/flag">Flag</a>
+          <a href="#/shape">Shape</a>
         </nav>
         <App />
         <Outlet />
@@ -22,12 +23,12 @@ const router = createHashRouter([
     ),
     children: [
       {
-        path: '/worldle/flag',
+        path: '/flag',
         element: <Flag countryUrl={'1'} />,
       },
       {
-        path: '/worldle/shape',
-        element: <Flag countryUrl={'2'} />,
+        path: '/shape',
+        element: <Shape countryUrl={'2'} />,
       },
     ],
   },

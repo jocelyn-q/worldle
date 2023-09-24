@@ -1,0 +1,60 @@
+.countryFlag {
+  display: flex;
+  flex-direction: column;
+}
+
+.flag {
+  height: 350px;
+}
+
+.flag-img {
+  max-height: 350px;
+  max-width: 700px;
+  align-self: center;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  align-self: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.btn {
+  border-radius: 100px;
+  border-width: 2px;
+  border-style: solid;
+  color: white;
+  padding: 16px 32px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.green {
+  background-color: #4caf50;
+  border-color: #2f6b31;
+}
+
+.blue {
+  background-color: #2692eb;
+  border-color: #1818ce;
+}
+
+.grey {
+  background-color: #2a333a;
+  border-color: #0d0d0f;
+}
+
+.country-name {
+  color: white;
+  font-size: 32px;
+  padding: 16px 32px;
+  min-height: 44px;
+}
